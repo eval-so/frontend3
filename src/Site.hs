@@ -16,6 +16,7 @@ import qualified Data.Map as M
 import Data.Monoid
 import qualified Data.Text as T
 import Snap.Extras.JSON
+import Snap.Core
 import Snap.Snaplet
 import Snap.Snaplet.Heist
 import Snap.Util.FileServe
@@ -68,9 +69,14 @@ try = heistLocal (I.bindSplices splices) $ render "try"
 languages :: Handler App App ()
 languages = writeJSON $ M.elems DCLE.languages
 
+-- | The @/@ landing page.
+index :: Handler App App ()
+index = ifTop $ render "index"
+
 routes :: [(ByteString, Handler App App ())]
 routes = [
            ("/static", serveDirectory "static")
+         , ("/", index)
          , ("/try", try)
          , ("/api/evaluate", evaluate)
          , ("/api/languages", languages)
