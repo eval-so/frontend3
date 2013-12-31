@@ -33,7 +33,6 @@
         </p>
         <div class="col-lg-6">
           <h3 class="center pad10">Example Request</h3>
-          <textarea id="code" name="code">puts "Hello world!"</textarea>
           <pre><code>{
   "language": "ruby",
   "code": "puts 2+2",
