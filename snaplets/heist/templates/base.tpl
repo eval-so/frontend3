@@ -45,7 +45,7 @@
           </div>
           <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
-              <li><a href="/docs">API Documentation</a></li>
+              <li><a href="/api">API Documentation</a></li>
               <li><a href="/try">Try out the API</a></li>
             </ul>
           </div>

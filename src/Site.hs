@@ -2,11 +2,11 @@
 
 module Site (app) where
 
-import Data.Cruncher.SELinux
-import qualified Data.Cruncher.Request as DCR
-import Data.Cruncher.Language ()
-import qualified Data.Cruncher.Language as DCL
-import qualified Data.Cruncher.Language.Everything as DCLE
+import Evalso.Cruncher.SELinux
+import qualified Evalso.Cruncher.Request as DCR
+import Evalso.Cruncher.Language ()
+import qualified Evalso.Cruncher.Language as DCL
+import qualified Evalso.Cruncher.Language.Everything as DCLE
 
 import Application
 import Control.Monad.IO.Class
@@ -73,11 +73,16 @@ languages = writeJSON $ M.elems DCLE.languages
 index :: Handler App App ()
 index = ifTop $ render "index"
 
+-- | The @/api@ endpoint which contains documentation for how to use the API.
+docs :: Handler App App ()
+docs = render "api"
+
 routes :: [(ByteString, Handler App App ())]
 routes = [
            ("/static", serveDirectory "static")
          , ("/", index)
          , ("/try", try)
+         , ("/api", docs)
          , ("/api/evaluate", evaluate)
          , ("/api/languages", languages)
          ]

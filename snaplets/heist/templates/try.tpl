@@ -1,5 +1,4 @@
 <apply template="base">
-
   <bind tag="pagetitle">Try in your browser</bind>
   <bind tag="pageassets">
     <script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/codemirror.min.js"></script>

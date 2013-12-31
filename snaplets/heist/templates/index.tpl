@@ -21,14 +21,14 @@
     <div class="col-md-6 sample">
       <h3>And we'll return...</h3>
       <pre><code>{
-  "compile": null,
-  "outputFiles": {},
-  "run": {
-    "stdout": "4\n",
-    "stderr": "",
-    "walltime": 436,
-    "exitcode": 0,
-  },
+    "compile": null,
+    "run": {
+        "exitCode": 0,
+        "outputFiles": {},
+        "stderr": "",
+        "wallTime": 228,
+        "stdout": "4\n"
+    }
 }</code></pre>
     </div>
   </div>
