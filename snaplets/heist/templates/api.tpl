@@ -39,8 +39,8 @@
           page.
         </p>
         <p>
-          We'll use Ruby for these examples, but keep in mind that the API is
-          language-agnostic.
+          We'll use Ruby and Bash for these examples, but keep in mind that the
+          API is language-agnostic and works with many other languages.
         </p>
         <p>
           Let's get started with the simplest form of evaluation.
@@ -104,8 +104,8 @@
         <div class="col-lg-6">
           <h3 class="center pad10">Example Request</h3>
           <textarea class="cm">{
-  "language": "ruby",
-  "code": "exec 'echo \'hello\' > my_file.gz'"
+  "language": "bash",
+  "code": "echo 'hello' | gzip > output/run/my_file.gz"
 }</textarea>
           <!-- Outside of the form because we want to submit as ajax only. -->
           <button value="submit" class="submit btn btn-success">Evaluate</button>
