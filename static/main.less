@@ -60,20 +60,20 @@ pre code {
 }
 
 p {
-  font-size: 1.2em;
+    font-size: 1.2em;
 }
 
 .evalso-lotsalangs {
-  background-color: #34495e;
-  color: #ecf0f1;
-  padding-top: 20px;
+    background-color: #34495e;
+    color: #ecf0f1;
+    padding-top: 20px;
 
-  h1 {
-    padding: 20px 0;
-    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.25);
-    font-size: 4em;
-    font-weight: 100;
-  }
+    h1 {
+        padding: 20px 0;
+        text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.25);
+        font-size: 4em;
+        font-weight: 100;
+    }
 }
 
 
@@ -86,4 +86,19 @@ p {
     width: 100%;
 }
 
+.CodeMirror {
+    background-color: #F5F5F5;
+    border: 1px solid #CCCCCC;
+    border-radius: 4px;
+}
 
+#api_docs {
+    .CodeMirror { height: auto; }
+
+    .CodeMirror-scroll {
+        overflow-y: hidden;
+        overflow-x: auto;
+    }
+
+    button { margin: 10px 0; }
+}

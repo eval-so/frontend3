@@ -22,26 +22,14 @@ $(function() {
     }
 
     $("#submit").click(function() {
-        $.ajax(
+        var response = $("#output");
+        var json = JSON.stringify(
             {
-                "url": "/api/evaluate",
-                "type": "POST",
-                "data": JSON.stringify({
-                    "language": language.val(),
-                    "code": editor.getValue(),
-                    "stdin": $("#stdin").val()
-                }),
-                "dataType": "json",
-                "contentType": "application/json; charset=utf-8",
-                "success": function(data) {
-                    $("#output").text(JSON.stringify(data, null, 4));
-                    $('#output').each(function(i, c) { hljs.highlightBlock(c) });
-                },
-                "error": function(jqXHR, textStatus, errorThrown) {
-                    $("output").text("[" + textStatus + "] " + errorThrown);
-                }
-            }
-        );
+                "language": language.val(),
+                "code": editor.getValue(),
+                "stdin": $("#stdin").val()
+            });
+        eval_code(json, response);
     });
 
     // Default to Ruby.

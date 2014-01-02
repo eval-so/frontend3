@@ -9,6 +9,7 @@
 
     <cm-map />
 
+    <script src="/static/js/api_evaluate.js"></script>
     <script src="/static/js/try.js"></script>
   </bind>
 
@@ -24,8 +25,9 @@
         <div class="form-group">
           <textarea id="code" name="code">puts "Hello world!"</textarea>
         </div>
+
         <div class="form-group">
-          <textarea id="stdin" name="stdin"></textarea>
+          <textarea id="stdin" name="stdin" class="form-control" placeholder="Standard Input (stdin)"></textarea>
         </div>
 
         <select id="language" name="language">
