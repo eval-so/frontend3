@@ -55,7 +55,7 @@
           <button value="submit" class="submit btn btn-success">Evaluate</button>
         </div>
         <div class="col-lg-6">
-          <h3 class="center">Example Response</h3>
+          <h3 class="center pad10">Example Response</h3>
           <pre><code></code></pre>
         </div>
       </div>
@@ -88,7 +88,7 @@
           <button value="submit" class="submit btn btn-success">Evaluate</button>
         </div>
         <div class="col-lg-6">
-          <h3 class="center">Example Response</h3>
+          <h3 class="center pad10">Example Response</h3>
           <pre><code></code></pre>
         </div>
       </div>
@@ -111,7 +111,7 @@
           <button value="submit" class="submit btn btn-success">Evaluate</button>
         </div>
         <div class="col-lg-6">
-          <h3 class="center">Example Response</h3>
+          <h3 class="center pad10">Example Response</h3>
           <pre><code></code></pre>
         </div>
       </div>
