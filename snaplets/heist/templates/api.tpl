@@ -101,6 +101,10 @@
           base64-encoded, so that if your program generates a binary file, such
           as an image or compressed data, we can easily get it to you.
         </p>
+        <p>
+          Simply drop them into <code>./output/run/</code> and they will
+          automatically be encoded and sent back to you in the API response.
+        </p>
         <div class="col-lg-6">
           <h3 class="center pad10">Example Request</h3>
           <textarea class="cm">{
