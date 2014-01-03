@@ -1,0 +1,36 @@
+# This is an Ansible playbook for deploying Frontend.
+- name: Deploy Frontend
+  hosts: beta.eval.so
+  accelerate: true
+  user: root
+  tasks:
+  - name: Clean
+    local_action: command cabal clean
+
+  - name: Build
+    local_action: command cabal build
+
+- name: Deploy Frontend
+  hosts: beta.eval.so
+#  accelerate: true
+  user: root
+  sudo: true
+  sudo_user: evalso
+  tasks: 
+  - name: Deploy
+    copy: src=dist/build/frontend3/frontend3 dest=/srv/frontend3/frontend3
+
+  - name: Make it executable
+    file: path=/srv/frontend3/frontend3 mode=0755
+
+  - name: Pull latest git (for static assets, templates, etc)
+    git: repo=git://github.com/eval-so/frontend3.git dest=/srv/frontend3 update=yes
+
+  - name: Stop the old snap server
+    command: killall frontend3
+    ignore_errors: true
+
+  - name: Start the new snap server
+    shell: chdir=/srv/frontend3 nohup ./frontend3 &
+    async: 86400
+    poll: 0
