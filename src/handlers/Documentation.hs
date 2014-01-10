@@ -3,15 +3,20 @@
 module Documentation (
     docs
   , index
+  , languages
   , try) where
 
 import Evalso.Cruncher.Language ()
 import qualified Evalso.Cruncher.Language as DCL
 import qualified Evalso.Cruncher.Language.Everything as DCLE
+import qualified Evalso.Cruncher.Unsandboxed as Unsandboxed
 
 import Application
+import Control.Applicative ((<$>))
+import Control.Monad.IO.Class
 import Data.List (intercalate)
 import qualified Data.Map as M
+import Data.Maybe (fromMaybe)
 import Data.Monoid
 import qualified Data.Text as T
 import Snap.Core
@@ -19,6 +24,7 @@ import Snap.Snaplet
 import Snap.Snaplet.Heist
 import qualified Text.Blaze.Html5 as H
 import Text.Blaze.Renderer.XmlHtml
+import Text.XmlHtml (Node(TextNode))
 import Heist
 import qualified Heist.Interpreted as I
 
@@ -59,3 +65,33 @@ index = ifTop $ cRender "index"
 docs :: Handler App App ()
 docs = cRender "api"
 
+-- | The @/languages@ documentation page.
+--
+--   This provides the same information as the @/api/languages@ API endpoint,
+--   but in a pretty UI chrome. Because we're nice. ;)
+--
+--   TODO: I18n.
+languages :: Handler App App ()
+languages = heistLocal (I.bindSplices splices) $ render "languages"
+  where
+    splices = do
+      "languages" ## languagesSplice
+
+    languagesSplice :: SnapletISplice App
+    languagesSplice = I.mapSplices (I.runChildrenWith . languages') (M.toAscList DCLE.languages)
+
+    nvrSplice l = do
+      nvr <- liftIO $ Unsandboxed.version l
+      return $ [TextNode nvr]
+
+    languages' :: MonadIO n => (String, DCL.Language) -> Splices (I.Splice n)
+    languages' (k, v) = do
+      "codeFilename"   ## I.textSplice (T.pack $ DCL.codeFilename v)
+      "compileCommand" ## I.textSplice (fromMaybe (T.pack "(Interpreted)") (T.unwords <$> DCL.compileCommand v))
+      "compileTimeout" ## I.textSplice (T.pack $ fromMaybe "(Interpreted)" ((++ " seconds") . show <$> DCL.compileTimeout v))
+      "runCommand"     ## I.textSplice (T.unwords (DCL.runCommand v))
+      "runTimeout"     ## I.textSplice (T.pack $ show (DCL.runTimeout v) ++ " seconds")
+      "codemirror"     ## I.textSplice (T.pack $ DCL.codemirror v)
+      "rpm-nvr"        ## nvrSplice v
+      "displayName"    ## I.textSplice (T.pack $ DCL.displayName v)
+      "apiName"        ## I.textSplice (T.pack k)

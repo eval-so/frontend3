@@ -17,6 +17,7 @@ routes = [
          , ("/", Documentation.index)
          , ("/try", Documentation.try)
          , ("/api", Documentation.docs)
+         , ("/languages", Documentation.languages)
          , ("/api/evaluate", API.evaluate)
          , ("/api/languages", API.languages)
          ]
