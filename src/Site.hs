@@ -7,6 +7,7 @@ import qualified Documentation
 
 import Application
 import Data.ByteString (ByteString)
+import qualified Snap.CORS as CORS
 import Snap.Snaplet
 import Snap.Snaplet.Heist
 import Snap.Util.FileServe
@@ -26,5 +27,6 @@ app :: SnapletInit App App
 app = makeSnaplet "app" "An snaplet example application." Nothing $ do
     h <- nestSnaplet "" heist $ heistInit "templates" -- $ mempty { hcInterpretedSplices = defaultInterpretedSplices }
     addRoutes routes
+    CORS.wrapCORS
     return $ App h
 
