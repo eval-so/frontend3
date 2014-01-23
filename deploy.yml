@@ -1,5 +1,9 @@
 # This is an Ansible playbook for deploying Frontend.
-- name: Deploy Frontend
+# Things tagged 'remote' don't involve any local building or transferring.
+# This means the playbook can be used, for example, to restart the app server
+# for any reason, without deploying the latest code, by specifying "-t remote"
+
+- name: Build Frontend
   hosts: beta.eval.so
   accelerate: true
   user: root
@@ -25,12 +29,18 @@
 
   - name: Pull latest git (for static assets, templates, etc)
     git: repo=git://github.com/eval-so/frontend3.git dest=/srv/frontend3 update=yes
+    tags:
+    - remote
 
   - name: Stop the old snap server
     command: killall frontend3
     ignore_errors: true
+    tags:
+    - remote
 
   - name: Start the new snap server
     shell: chdir=/srv/frontend3 nohup ./frontend3 &
-    async: 86400
+    async: 8640000000
     poll: 0
+    tags:
+    - remote
