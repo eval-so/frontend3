@@ -35,8 +35,8 @@ Executable frontend3
     snap-cors                 >= 1.2     && < 2,
     snap-extras               >= 0.7,
     snap-server               >= 0.9     && < 0.11,
-    snap-loader-static        >= 0.9     && < 0.10,
-    text                      >= 0.11    && < 0.12,
+    snap-loader-static        >= 1       && < 2,
+    text                      >= 0.11,
     time                      >= 1.1     && < 1.5,
     transformers,
     xmlhtml                   >= 0.1,
@@ -50,7 +50,7 @@ Executable frontend3
   else
     build-depends:
       base                      >= 4.4      && < 5,
-      lens                      >= 3.7.6    && < 3.11
+      lens                      >= 3.7.6    && < 4.2
 
   if flag(development)
     build-depends:
