@@ -39,7 +39,7 @@
     - remote
 
   - name: Start the new snap server
-    shell: chdir=/srv/frontend3 nohup ./frontend3 &
+    shell: chdir=/srv/frontend3 LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8 nohup ./frontend3 &
     async: 8640000000
     poll: 0
     tags:
