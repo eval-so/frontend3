@@ -13,6 +13,7 @@ import qualified Evalso.Cruncher.Unsandboxed as Unsandboxed
 
 import Application
 import Control.Applicative ((<$>))
+import Control.Lens hiding (index)
 import Control.Monad.IO.Class
 import Data.List (intercalate)
 import qualified Data.Map as M
@@ -45,7 +46,7 @@ try = heistLocal (I.bindSplices splices) $ render "try"
       let cmLangs = intercalate ", " $
                     (fmap (\(a, b) -> "\"" ++ a ++ "\": \"" ++ b ++ "\"") $
                      M.toList $
-                     M.map (DCL.codemirror) DCLE.languages)
+                     M.map (^. DCL.codemirror) DCLE.languages)
         in
        H.script ("var cmMap = {" `mappend` H.toHtml cmLangs `mappend` "};")
 
@@ -54,7 +55,7 @@ try = heistLocal (I.bindSplices splices) $ render "try"
 
     languages' :: Monad n => (String, DCL.Language) -> Splices (I.Splice n)
     languages' (k, v) = do
-      "displayname" ## I.textSplice (T.pack $ DCL.displayName v)
+      "displayname" ## I.textSplice (T.pack $ v ^. DCL.displayName)
       "apiname"     ## I.textSplice (T.pack k)
 
 -- | The @/@ landing page.
@@ -86,12 +87,12 @@ languages = heistLocal (I.bindSplices splices) $ render "languages"
 
     languages' :: MonadIO n => (String, DCL.Language) -> Splices (I.Splice n)
     languages' (k, v) = do
-      "codeFilename"   ## I.textSplice (T.pack $ DCL.codeFilename v)
-      "compileCommand" ## I.textSplice (fromMaybe (T.pack "(Interpreted)") (T.unwords <$> DCL.compileCommand v))
-      "compileTimeout" ## I.textSplice (T.pack $ fromMaybe "(Interpreted)" ((++ " seconds") . show <$> DCL.compileTimeout v))
-      "runCommand"     ## I.textSplice (T.unwords (DCL.runCommand v))
-      "runTimeout"     ## I.textSplice (T.pack $ show (DCL.runTimeout v) ++ " seconds")
-      "codemirror"     ## I.textSplice (T.pack $ DCL.codemirror v)
+      "codeFilename"   ## I.textSplice (T.pack $ v ^. DCL.codeFilename)
+      "compileCommand" ## I.textSplice (fromMaybe (T.pack "(Interpreted)") (T.unwords <$> v ^. DCL.compileCommand))
+      "compileTimeout" ## I.textSplice (T.pack $ fromMaybe "(Interpreted)" ((++ " seconds") . show <$> v ^. DCL.compileTimeout))
+      "runCommand"     ## I.textSplice (T.unwords (v ^. DCL.runCommand))
+      "runTimeout"     ## I.textSplice (T.pack $ show (v ^. DCL.runTimeout) ++ " seconds")
+      "codemirror"     ## I.textSplice (T.pack $ v ^. DCL.codemirror)
       "rpm-nvr"        ## nvrSplice v
-      "displayName"    ## I.textSplice (T.pack $ DCL.displayName v)
+      "displayName"    ## I.textSplice (T.pack $ v ^. DCL.displayName)
       "apiName"        ## I.textSplice (T.pack k)
