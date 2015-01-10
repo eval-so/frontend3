@@ -5,7 +5,7 @@ Description:         This is the Haskell rewrite of the eval.so frontend. It pro
 License:             BSD3
 Author:              Ricky Elrod
 Maintainer:          ricky@elrod.me
-copyright:           2014 - Ricky Elrod
+copyright:           (c) 2015 Ricky Elrod
 Stability:           Experimental
 Category:            Web
 Build-type:          Simple
