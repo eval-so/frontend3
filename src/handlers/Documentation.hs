@@ -83,7 +83,7 @@ languages = heistLocal (I.bindSplices splices) $ render "languages"
 
     nvrSplice l = do
       nvr <- liftIO $ Unsandboxed.version l
-      return $ [TextNode nvr]
+      return . maybe [] (return . TextNode) $ nvr
 
     languages' :: MonadIO n => (String, DCL.Language) -> Splices (I.Splice n)
     languages' (k, v) = do
